@@ -2,9 +2,9 @@ import cv2
 
 # data = cv2.imread('resources/test.jpg')
 
-capture = cv2.VideoCapture(0)
-capture.set(3, 640)
-capture.set(4, 480)
+capture = cv2.VideoCapture(1)
+capture.set(3, 1500)
+capture.set(4, 800)
 
 
 with open('resources/coco.names', 'r') as file:
@@ -20,6 +20,7 @@ net.setInputScale(1.0/127.5)
 net.setInputMean((127.5, 127.5, 127.5))
 net.setInputSwapRB(True)
 
+
 while True:
     success, data = capture.read()
 
@@ -28,9 +29,13 @@ while True:
 
     if len(classIds) != 0:
         for classId, confidence, box in zip(classIds.flatten(), confs.flatten(), bounding_box):
-            cv2.rectangle(data, box, color=(245, 44, 44), thickness=1)
-            cv2.putText(data,`` classNames[classId-1], (box[0]+10, box[1]+30),
-                        cv2.FONT_HERSHEY_COMPLEX, 1, (94, 255, 105), 1)
+            cv2.rectangle(data, box, color=(0, 251, 255), thickness=1)
+
+            cv2.putText(data, classNames[classId-1], (box[0]+10, box[1]+30),
+                        cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 89), 1)
+            
+            cv2.putText(data, str(round(confidence*100, 1)), (box[0]+150, box[1]+30),
+                        cv2.FONT_HERSHEY_COMPLEX, 1, (255, 157, 0), 1)
 
     cv2.imshow('Image', data)
-    print(cv2.waitKey(8))
+    cv2.waitKey(1)
