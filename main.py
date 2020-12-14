@@ -1,8 +1,8 @@
+import keyboard
 import cv2
 
-# data = cv2.imread('resources/test.jpg')
 
-capture = cv2.VideoCapture(1)
+capture = cv2.VideoCapture(0)
 capture.set(3, 1500)
 capture.set(4, 800)
 
@@ -39,3 +39,6 @@ while True:
 
     cv2.imshow('Image', data)
     cv2.waitKey(1)
+
+    if keyboard.is_pressed('backspace') or keyboard.is_pressed('home'):
+        exit()
