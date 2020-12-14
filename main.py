@@ -1,13 +1,13 @@
 import cv2
 
-data = cv2.imread('test.jpg')
+data = cv2.imread('resources/test.jpg')
 
-with open('coco.names', 'r') as file:
+with open('resources/coco.names', 'r') as file:
     classNames = []
     classNames = file.read().rstrip('\n').split('\n')
 
-config = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
-weights = 'frozen_inference_graph.pb'
+config = 'resources/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
+weights = 'resources/frozen_inference_graph.pb'
 
 net = cv2.dnn_DetectionModel(weights, config)
 net.setInputSize(320, 320)
