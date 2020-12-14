@@ -1,6 +1,11 @@
 import cv2
 
-data = cv2.imread('resources/test.jpg')
+# data = cv2.imread('resources/test.jpg')
+
+capture = cv2.VideoCapture(0)
+capture.set(3, 640)
+capture.set(4, 480)
+
 
 with open('resources/coco.names', 'r') as file:
     classNames = []
@@ -15,13 +20,17 @@ net.setInputScale(1.0/127.5)
 net.setInputMean((127.5, 127.5, 127.5))
 net.setInputSwapRB(True)
 
-classIds, confs, bounding_box = net.detect(data, confThreshold=0.5)
-print(classIds, bounding_box)
+while True:
+    success, data = capture.read()
 
-for classId, confidence, box in zip(classIds.flatten(), confs.flatten(), bounding_box):
-    cv2.rectangle(data, box, color=(245, 44, 44), thickness=1)
-    cv2.putText(data, classNames[classId-1], (box[0]+10, box[1]+30),
-                cv2.FONT_HERSHEY_COMPLEX, 1, (94, 255, 105), 1)
+    classIds, confs, bounding_box = net.detect(data, confThreshold=0.5)
+    print(classIds, bounding_box)
 
-cv2.imshow('Image', data)
-cv2.waitKey(0)
+    if len(classIds) != 0:
+        for classId, confidence, box in zip(classIds.flatten(), confs.flatten(), bounding_box):
+            cv2.rectangle(data, box, color=(245, 44, 44), thickness=1)
+            cv2.putText(data,`` classNames[classId-1], (box[0]+10, box[1]+30),
+                        cv2.FONT_HERSHEY_COMPLEX, 1, (94, 255, 105), 1)
+
+    cv2.imshow('Image', data)
+    print(cv2.waitKey(8))
