@@ -1,10 +1,9 @@
 import keyboard
 import cv2
 
-
 capture = cv2.VideoCapture(0)
-capture.set(3, 1500)
-capture.set(4, 800)
+capture.set(3, 2200)
+capture.set(4, 1000)
 
 
 with open('resources/coco.names', 'r') as file:
@@ -37,7 +36,8 @@ while True:
             cv2.putText(data, str(round(confidence*100, 1)), (box[0]+150, box[1]+30),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 157, 0), 1)
 
-    cv2.imshow('Image', data)
+    cv2.imshow('Object detection', data)
+
     cv2.waitKey(1)
 
     if keyboard.is_pressed('backspace') or keyboard.is_pressed('home'):
