@@ -14,5 +14,5 @@ requirements
 
 `capture = cv2.VideoCapture(0) <- the index of your camera`
 
-this could modified according to your needs
+this could be modified according to your needs
 
